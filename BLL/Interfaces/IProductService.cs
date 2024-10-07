@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace BLL.Interfaces
 {
-    internal interface IProductService
+    public interface IProductService
     {
-        public void Add();
-        public void Update();
-        public void Delete();
-        public void Get();
-        public void GetAll();
+        public Task CreateProductAsync(ProductDTO modelDto);
+        public Task RemoveProductAsync(int id);
+        public void UpdateProduct(ProductDTO modelDto);
+        public Task<ProductDTO> GetProductByIdAsync(int id);
+        public Task<IEnumerable<ProductDTO>> GetAllProductsAsync();
     }
 }

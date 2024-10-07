@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Models
 {
-    internal class Product : IdInfo
+    public class Product : IdInfo
     {
         public string Name { get; set; } //Название продукта
         public string Description { get; set; } //Описание продукта

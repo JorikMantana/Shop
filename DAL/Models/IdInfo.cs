@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Models
 {
-    internal class IdInfo
+    public class IdInfo
     {
         public int Id { get; set; }
     }

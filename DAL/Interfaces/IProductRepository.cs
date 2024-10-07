@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Models;
 
 namespace DAL.Interfaces
 {
-    public interface IProductRepository<T>
+    public interface IProductRepository
     {
-        public Task AddToDb(T model);
-        public Task RemoveFromDb(int id);
-        public Task UpdateToDb(T model);
-        public Task GetFromDb(int id);
-        public Task<IQueryable<T>> GetAllFromDb();
+        public Task CreateProductAsync(Product model);
+        public Task RemoveProductAsync(int id);
+        public void UpdateProduct(Product model);
+        public Task<Product> GetProductByIdAsync(int id);
+        public Task<IEnumerable<Product>> GetAllProductsAsync();
     }
 }

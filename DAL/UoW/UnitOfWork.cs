@@ -12,7 +12,7 @@ namespace DAL.UoW
 {
     internal class UnitOfWork
     {
-        private ShopContext _db = new ShopContext();
+        private ShopContext _db;
         private ProductRepository _productRepository;
 
         public ProductRepository Products

@@ -10,7 +10,7 @@ namespace DAL.Data
 {
     public class ShopContext : DbContext
     {
-        DbSet<Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         public ShopContext(DbContextOptions<ShopContext> options) : base(options) 
         {

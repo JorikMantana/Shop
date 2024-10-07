@@ -4,12 +4,14 @@ using DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.JavaScript;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
-    internal class ProductRepository : IProductRepository<Product>
+    internal class ProductRepository : IProductRepository
     {
         private ShopContext _db;
 
@@ -18,29 +20,40 @@ namespace DAL.Repositories
             _db = shopContext;
         }
 
-        public async Task AddToDb(Product model)
+        public async Task CreateProductAsync(Product model)
         {
             await _db.AddAsync(model);
         }
 
-        public async Task<IQueryable<Product>> GetAllFromDb()
+        public async Task RemoveProductAsync(int id)
         {
-            //TODO
+            var product = await _db.Products.FindAsync(id);
+            
+            if(product == null)
+                return;
+            
+            _db.Remove(product);
         }
 
-        public Task GetFromDb(int id)
+        public void UpdateProduct(Product model)
         {
-            throw new NotImplementedException();
+            if(model == null)
+                return;
+            
+            _db.Products.Entry(model).State = EntityState.Modified;
         }
 
-        public Task RemoveFromDb(int id)
+        public async Task<Product> GetProductByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _db.Products.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public Task UpdateToDb(Product model)
+        public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
-            throw new NotImplementedException();
+            if (!_db.Products.Any())
+                return null;
+            
+            return await _db.Products.ToListAsync();
         }
     }
 }
