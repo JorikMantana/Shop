@@ -1,3 +1,4 @@
+using BLL.MappingProfiles;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shop.MVC.Data;
@@ -27,6 +28,8 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+builder.Services.AddAutoMapper(typeof(ProductProfile));
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
