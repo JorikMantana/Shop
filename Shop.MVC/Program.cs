@@ -1,19 +1,35 @@
+using BLL.Interfaces;
 using BLL.MappingProfiles;
-using Microsoft.AspNetCore.Identity;
+using BLL.Services;
+using DAL.Data;
+using DAL.Interfaces;
+using DAL.Repositories;
+using DAL.UoW;
 using Microsoft.EntityFrameworkCore;
-using Shop.MVC.Data;
+using Shop.MVC.MappingProfiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<ShopContext>(options =>
     options.UseSqlServer(connectionString));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddAutoMapper(typeof(ProductProfile), typeof(ProductMvProfile));
+
+builder.Services.AddRazorPages();
+
+//Сервисы
+builder.Services.AddScoped<IProductService, ProductService>();
+//Репозитории
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+//UnitOfWork
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 
 var app = builder.Build();
 
@@ -29,7 +45,6 @@ else
     app.UseHsts();
 }
 
-builder.Services.AddAutoMapper(typeof(ProductProfile));
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

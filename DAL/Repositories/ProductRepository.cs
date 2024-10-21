@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
-    internal class ProductRepository : IProductRepository
+    public class ProductRepository : IProductRepository
     {
         private ShopContext _db;
 
@@ -50,9 +50,6 @@ namespace DAL.Repositories
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
-            if (!_db.Products.Any())
-                return null;
-            
             return await _db.Products.ToListAsync();
         }
     }

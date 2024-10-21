@@ -19,9 +19,12 @@ namespace BLL.Services
         private IUnitOfWork _db;
         private readonly IMapper _mapper;
 
-        public ProductService(IProductRepository productRepository)
+        public ProductService(IProductRepository productRepository, IMapper mapper, IUnitOfWork UoW)
         {
             _productRepository = productRepository;
+            _mapper = mapper;
+            _db = UoW;
+
         }
 
         public async Task CreateProductAsync(ProductDto modelDto)

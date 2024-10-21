@@ -10,12 +10,17 @@ using System.Threading.Tasks;
 
 namespace DAL.UoW
 {
-    internal class UnitOfWork
+     public class UnitOfWork : IUnitOfWork
     {
         private ShopContext _db;
         private ProductRepository _productRepository;
 
-        public ProductRepository Products
+        public UnitOfWork(ShopContext shopContext)
+        {
+            _db = shopContext;
+        }
+
+        public IProductRepository Products
         {
             get
             {
@@ -25,7 +30,7 @@ namespace DAL.UoW
             }    
         }
 
-        public async Task Save()
+        public async Task SaveChanges()
         {
             _db.SaveChanges();
         }
