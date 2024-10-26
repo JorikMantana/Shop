@@ -3,12 +3,24 @@
 }
 @model IEnumerable<Shop.MVC.ModelViews.ProductModelView>
 
-<div>
-    @foreach(var item in Model)
-    {
-        <p>@item.Name</p>
-        <p>@item.Description</p>
-        <p>@item.Price</p>
-    }
+<div class="container">
+    <div class="row row-cols-6">
+        @for (int i = 0; i < 13; i++)
+        {
+            <div class="col">
+                <a href="" class="text-decoration-none">
+                    <div class="card bg-light mb-4">
+                        <div class="card-body">
+                            <img class="card-img" src="/img/noimg.png"></img>
+                        </div>
+                        <div class="card-footer">
+                            <div class="text-black text-center">Name</div>
+                            <div class="text-black text-center">Price</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
 </div>
 
