@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Models
+namespace BLL.DTOs
 {
-    public class Image
+    public class ImageDto
     {
         public int Id { get; set; }
         public int ProductId { get; set; }

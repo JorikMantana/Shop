@@ -7,6 +7,7 @@ using DAL.Repositories;
 using DAL.UoW;
 using Microsoft.EntityFrameworkCore;
 using Shop.MVC.MappingProfiles;
+using Shop.MVC.ModelViews;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,14 +20,16 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddAutoMapper(typeof(ProductProfile), typeof(ProductMvProfile));
+builder.Services.AddAutoMapper(typeof(ProductProfile), typeof(ProductMvProfile), typeof(ImageProfile), typeof(ImageMvProfile));
 
 builder.Services.AddRazorPages();
 
 //Сервисы
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IImageService, ImageService>();
 //Репозитории
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IImageRepository, ImageRepository>();
 //UnitOfWork
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

@@ -7,11 +7,11 @@
 
 <div class="container w-50">
     <div class="">
-        <form>
+        <form asp-action="Create" method="post">
             <label for="productName">Название</label>
-            <input type="text" class="form-control" id="productName"></input>
+            <input asp-for="Name" type="text" class="form-control" id="productName"></input>
             <label for="productDescription">Описание</label>
-            <textarea class="form-control" type="text" rows="4" id="productDescription"></textarea>
+            <textarea asp-for="Description" class="form-control" type="text" rows="4" id="productDescription"></textarea>
             <label for="">Цена</label>
             <input type="text" class="form-control" id="produtPrice"></input>
             <label for="productImage">Фото</label>
