@@ -27,11 +27,13 @@ namespace BLL.Services
 
         }
 
-        public async Task CreateProductAsync(ProductDto modelDto)
+        public async Task<Product> CreateProductAsync(ProductDto modelDto)
         {
             var product = _mapper.Map<Product>(modelDto);
             await _db.Products.CreateProductAsync(product);
             await _db.SaveChanges();
+
+            return product;
         }
 
         public async Task RemoveProductAsync(int id)

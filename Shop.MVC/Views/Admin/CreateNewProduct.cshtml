@@ -3,19 +3,21 @@
 @{
 }
 
+@model Shop.MVC.ModelViews.ProductModelView
+
 <h2 class="text-center">Новый продукт</h2>
 
 <div class="container w-50">
     <div class="">
-        <form asp-action="Create" method="post">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
             <label for="productName">Название</label>
             <input asp-for="Name" type="text" class="form-control" id="productName"></input>
             <label for="productDescription">Описание</label>
             <textarea asp-for="Description" class="form-control" type="text" rows="4" id="productDescription"></textarea>
             <label for="">Цена</label>
-            <input type="text" class="form-control" id="produtPrice"></input>
+            <input asp-for="Price" type="text" class="form-control" id="produtPrice"></input>
             <label for="productImage">Фото</label>
-            <input type="file" class="form-control" id="productImage" multiple accept="image/*"></input>
+            <input asp-for="Image.ImageFile" type="file" class="form-control" id="productImage" accept="image/*"></input>
             <div class="text-center my-2">
                 <button type="submit" class="btn btn-primary text-center ">Добавить</button>
             </div>

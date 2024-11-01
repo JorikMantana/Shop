@@ -5,6 +5,7 @@ using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 using Shop.MVC.ModelViews;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Shop.MVC.Controllers
 {
@@ -21,20 +22,46 @@ namespace Shop.MVC.Controllers
             _imageService = imageService;
         }
 
-        public async Task<IActionResult> Create(ImageModelView model, ProductModelView _product)
+        [HttpPost]
+        public async Task<IActionResult> Create(ProductModelView _product)
         {
             var product = _mapper.Map<ProductDto>(_product);
-            await _productService.CreateProductAsync(product);
+            var createdProduct = await _productService.CreateProductAsync(product);
 
-            var image = _mapper.Map<ImageDto>(model);
-            await _imageService.CreateImage(image);
+            if(_product.Image != null)
+            {
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/ProductImages");
+                var uniqueFileName = Guid.NewGuid().ToString() + "_" + _product.Image.ImageFile.FileName;
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                // Сохраняем изображение на сервере
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await _product.Image.ImageFile.CopyToAsync(stream);
+                }
+
+                // Создаем DTO для изображения
+                var image = new ImageDto
+                {
+                    ProductId = createdProduct.Id, // Устанавливаем ID продукта
+                    ImagePath = filePath // Сохраняем путь к изображению
+                };
+
+                await _imageService.CreateImage(image);
+            }
 
             return RedirectToAction("CreateNewProduct");
         }
 
         public IActionResult CreateNewProduct()
         {
-            return View();
+
+            var model = new ProductModelView
+            {
+                Image = new ImageModelView() // Инициализация объекта ImageModelView
+            };
+
+            return View(model);
         }
     }
 }

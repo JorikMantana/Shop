@@ -14,6 +14,7 @@ namespace DAL.UoW
     {
         private ShopContext _db;
         private ProductRepository _productRepository;
+        private ImageRepository _imageRepository;
 
         public UnitOfWork(ShopContext shopContext)
         {
@@ -28,6 +29,16 @@ namespace DAL.UoW
                     _productRepository = new ProductRepository(_db);
                 return _productRepository;
             }    
+        }
+
+        public IImageRepository Images
+        {
+            get
+            {
+                if (_imageRepository == null)
+                    _imageRepository = new ImageRepository(_db);
+                return _imageRepository;
+            }
         }
 
         public async Task SaveChanges()
