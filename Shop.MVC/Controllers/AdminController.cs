@@ -34,17 +34,17 @@ namespace Shop.MVC.Controllers
                 var uniqueFileName = Guid.NewGuid().ToString() + "_" + _product.Image.ImageFile.FileName;
                 var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-                // Сохраняем изображение на сервере
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await _product.Image.ImageFile.CopyToAsync(stream);
                 }
 
-                // Создаем DTO для изображения
+                string relativePath = $"/img/ProductImages/{uniqueFileName}";
+
                 var image = new ImageDto
                 {
-                    ProductId = createdProduct.Id, // Устанавливаем ID продукта
-                    ImagePath = filePath // Сохраняем путь к изображению
+                    ProductId = createdProduct.Id, 
+                    ImagePath = relativePath 
                 };
 
                 await _imageService.CreateImage(image);
@@ -58,7 +58,7 @@ namespace Shop.MVC.Controllers
 
             var model = new ProductModelView
             {
-                Image = new ImageModelView() // Инициализация объекта ImageModelView
+                Image = new ImageModelView()
             };
 
             return View(model);

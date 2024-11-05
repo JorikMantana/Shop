@@ -34,5 +34,10 @@ namespace DAL.Repositories
         {
             return await _db.Images.FirstOrDefaultAsync(p => p.Id == id);
         }
+
+        public async Task<IEnumerable<Image>> GetAllImages()
+        {
+            return await _db.Images.ToListAsync();
+        }
     }
 }

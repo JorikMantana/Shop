@@ -1,21 +1,21 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-@model IEnumerable<Shop.MVC.ModelViews.ProductModelView>
+@model Shop.MVC.ModelViews.ProductsModelView
 
 <div class="container">
     <div class="row row-cols-6">
-        @for (int i = 0; i < 13; i++)
+        @foreach(var item in Model.ProductsWithImages)
         {
             <div class="col">
                 <a href="" class="text-decoration-none">
                     <div class="card bg-light mb-4">
                         <div class="card-body">
-                            <img class="card-img" src="/img/noimg.png"></img>
+                            <img class="card-img" src="@item.ImageUrl">
                         </div>
                         <div class="card-footer">
-                            <div class="text-black text-center">Name</div>
-                            <div class="text-black text-center">Price</div>
+                            <div class="text-black text-center">@item.Product.Name</div>
+                            <div class="text-black text-center">@item.Product.Price</div>
                         </div>
                     </div>
                 </a>

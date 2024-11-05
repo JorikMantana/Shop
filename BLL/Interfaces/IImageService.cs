@@ -12,5 +12,6 @@ namespace BLL.Interfaces
         public Task CreateImage(ImageDto model);
         public Task DeleteImage(int id);
         public Task<ImageDto> GetImageById(int id);
+        Task<IEnumerable<ImageDto>> GetAllImages();
     }
 }

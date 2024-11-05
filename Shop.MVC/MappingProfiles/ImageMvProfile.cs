@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BLL.DTOs;
+using Shop.MVC.ModelViews;
 
 namespace Shop.MVC.MappingProfiles
 {
@@ -7,7 +8,7 @@ namespace Shop.MVC.MappingProfiles
     {
         public ImageMvProfile() 
         {
-            CreateMap<ImageDto, ImageMvProfile>().ReverseMap();
+            CreateMap<ImageDto, ImageModelView>().ReverseMap();
         }
     }
 }

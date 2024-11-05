@@ -41,5 +41,11 @@ namespace BLL.Services
             var imageDto = _mapper.Map<ImageDto>(image);
             return imageDto;
         }
+
+        public async Task<IEnumerable<ImageDto>> GetAllImages()
+        {
+            var images = await _db.Images.GetAllImages();
+            return _mapper.Map<IEnumerable<ImageDto>>(images);
+        }
     }
 }
