@@ -6,5 +6,6 @@ public interface IUnitOfWork
 {
     public IProductRepository Products { get; }
     public IImageRepository Images { get; }
+    public IFeedbackRepository Feedbacks { get; }
     public Task SaveChanges();
 }

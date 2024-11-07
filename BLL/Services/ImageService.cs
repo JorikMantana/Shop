@@ -16,7 +16,7 @@ namespace BLL.Services
         private readonly IUnitOfWork _db;
         private readonly IMapper _mapper;
 
-        public ImageService(IImageRepository imagerepo, IUnitOfWork unitOfWork, IMapper mapper)
+        public ImageService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _mapper = mapper;
             _db = unitOfWork;
@@ -31,7 +31,7 @@ namespace BLL.Services
 
         public async Task DeleteImage(int id)
         {
-            var image = _db.Images.DeleteImage(id);
+            await _db.Images.DeleteImage(id);
             await _db.SaveChanges();
         }
 
