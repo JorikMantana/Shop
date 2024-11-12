@@ -13,5 +13,6 @@ namespace DAL.Interfaces
         public Task DeleteImage(int Id);
         public Task<Image> GetImageById(int Id);
         public Task<IEnumerable<Image>> GetAllImages();
+        public Task<Image> GetImageByProductId(int ProductId);
     }
 }

@@ -1,21 +1,24 @@
-﻿@*
+﻿@using Shop.MVC.ModelViews
+@*
 *@
 @{
 }
 
+@model ProductWithImageModelView
+
 <div class="container">
     <div class="row row-cols-2">
         <div class="col">
-            <img src="/img/noimg.png" class="img-fluid"></img>
+            <img src="@Model.ImageUrl" class="img-fluid"></img>
         </div>
         <div class="col">
             <div class="m-5 bg-light h-15 w-50 align-content-center mx-auto d-block">
-                <h1 class="text-black text-center">Название</h1>
-                <h2 class="text-black text-center">Цена</h2>
+                <h1 class="text-black text-center">@Model.Product.Name</h1>
+                <h2 class="text-black text-center">@Model.Product.Price</h2>
                 <button type="button" class="btn btn-outline-success mx-auto d-block w-75">В корзину</button>
             </div>
             <div class="h-75 m-5 w-100 mx-auto d-block">
-                <div class="text-black text-wrap">Книга по игре Амонг Ас! Действие происходит, как и в игре, на космическом корабле. История о том, как участники космической экспедиции вычисляют предателя. На корабле в открытом космосе неизвестная болезнь поражает одного за другим участников экспедиции. Наверное, один из них носитель вируса и предатель. Но как его вычислить?.. Приключения, загадка, неожиданный финал!</div>
+                <div class="text-black text-wrap">@Model.Product.Description</div>
             </div>
         </div>
     </div>

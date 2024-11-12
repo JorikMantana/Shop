@@ -8,10 +8,10 @@
         @foreach(var item in Model.ProductsWithImages)
         {
             <div class="col">
-                <a href="" class="text-decoration-none">
+                <a href="@Url.Action("Index", "Product", new {id = @item.Product.Id})" class="text-decoration-none">
                     <div class="card bg-light mb-4">
-                        <div class="card-body">
-                            <img class="card-img" src="@item.ImageUrl">
+                        <div class="card-body text-center">
+                            <img style="width: 150px; height: 150px" class="card-img" src="@item.ImageUrl">
                         </div>
                         <div class="card-footer">
                             <div class="text-black text-center">@item.Product.Name</div>

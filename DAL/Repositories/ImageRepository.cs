@@ -39,5 +39,10 @@ namespace DAL.Repositories
         {
             return await _db.Images.ToListAsync();
         }
+
+        public async Task<Image> GetImageByProductId(int ProductId)
+        {
+            return await _db.Images.FirstOrDefaultAsync(p => p.ProductId == ProductId);
+        }
     }
 }

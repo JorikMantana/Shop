@@ -51,7 +51,7 @@ namespace Shop.MVC.Controllers
             var productImages = products.Select(product => new ProductWithImageModelView
             {
                 Product = product,
-                ImageUrl = images.FirstOrDefault(img => img.ProductId == product.Id)?.ImagePath // Предполагается, что у вас есть свойство ProductId в ImageDto
+                ImageUrl = images.FirstOrDefault(img => img.ProductId == product.Id)?.ImagePath
             });
 
             var model = new ProductsModelView

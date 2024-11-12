@@ -59,5 +59,7 @@ namespace BLL.Services
             var products = await _db.Products.GetAllProductsAsync();
             return _mapper.Map<IEnumerable<ProductDto>>(products);
         }
+        
+        
     }
 }
