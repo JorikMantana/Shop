@@ -4,7 +4,7 @@
 @{
 }
 
-@model ProductWithImageModelView
+@model ProductWithFeedbackAndImageModelView
 
 <div class="container">
     <div class="row row-cols-2">
@@ -30,7 +30,7 @@
 
 <div class="container my-5">
     <div class="row">
-        @for (int i = 0; i < 13; i++)
+        @foreach(var item in Model.Feedbacks)
         {
             <div class="card m-2">
                 <div class="row">
@@ -38,8 +38,8 @@
                         <img class="card-img" src="/img/noimg.png"></img>
                     </div>
                     <div class="col col-11">
-                        <h4>Никнейм</h4>
-                        <h5>Ну продукт ваще говно я купил, распаковал, а он с плесенью!!! Как вообще плесень в солнечных очках быть может, а? Что за беспредел, я буду жаловаться отцу, а он у меня прокурор!!!!!!!</h5>
+                        <h4>@item.NickName</h4>
+                        <h5>@item.Comment</h5>
                     </div>
                 </div>
             </div>

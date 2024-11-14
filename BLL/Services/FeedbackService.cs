@@ -37,7 +37,7 @@ namespace BLL.Services
 
         public async Task<IEnumerable<FeedbackDto>> GetAllFeedbacks()
         {
-            var feedbacks = _db.Feedbacks.GetAllFeedbacks();
+            var feedbacks = await _db.Feedbacks.GetAllFeedbacks();
             return _mapper.Map<IEnumerable<FeedbackDto>>(feedbacks);
         }
 

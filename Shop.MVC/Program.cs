@@ -20,15 +20,15 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddAutoMapper(typeof(ProductProfile), typeof(ProductMvProfile), typeof(ImageProfile), typeof(ImageMvProfile), typeof(FeedbackProfile));
+builder.Services.AddAutoMapper(typeof(ProductProfile), typeof(ProductMvProfile), typeof(ImageProfile), typeof(ImageMvProfile), typeof(FeedbackProfile), typeof(FeedbackMvProfile));
 
 builder.Services.AddRazorPages();
 
-//Сервисы
+//Services
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IFeedbackService, FeedbackService>();
-//Репозитории
+//Repositories
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
 builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();

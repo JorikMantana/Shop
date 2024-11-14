@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BLL.DTOs;
 using BLL.Interfaces;
-using DAL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Shop.MVC.ModelViews;
 
@@ -12,12 +11,14 @@ namespace Shop.MVC.Controllers
         private readonly IMapper _mapper;
         IProductService _productService;
         IImageService _imageService;
+        IFeedbackService _feedbackService;
         
-        public ProductController(IProductService productService, IMapper mapper, IImageService imageService)
+        public ProductController(IFeedbackService feedbackService, IProductService productService, IMapper mapper, IImageService imageService)
         {
             _mapper = mapper;
             _productService = productService;
             _imageService = imageService;
+            _feedbackService = feedbackService;
         }
         
         [HttpGet]
@@ -29,10 +30,14 @@ namespace Shop.MVC.Controllers
             ImageDto imageDto = await _imageService.GetImageByProductId(id);
             var image = _mapper.Map<ImageModelView>(imageDto);
 
-            var model = new ProductWithImageModelView()
+            IEnumerable<FeedbackDto> feedbackDtos = await _feedbackService.GetAllFeedbacks();
+            var feedbacks = _mapper.Map<IEnumerable<FeedbackModelView>>(feedbackDtos);
+
+            var model = new ProductWithFeedbackAndImageModelView()
             {
                 Product = product,
-                ImageUrl = image.ImagePath
+                ImageUrl = image.ImagePath,
+                Feedbacks = feedbacks
             };
             
             return View(model);
