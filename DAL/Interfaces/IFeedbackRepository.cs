@@ -14,5 +14,6 @@ namespace DAL.Interfaces
         Task<Feedback> GetFeedbackById(int id);
         void UpdateFeedback(Feedback feedback);
         Task<IEnumerable<Feedback>> GetAllFeedbacks();
+        Task<IEnumerable<Feedback>> GetFeedbacksByProductId(int ProductId);
     }
 }

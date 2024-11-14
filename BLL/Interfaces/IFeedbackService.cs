@@ -15,5 +15,6 @@ namespace BLL.Interfaces
         Task<IEnumerable<FeedbackDto>> GetAllFeedbacks();
         Task DeleteFeedback(int id);
         void UpdateFeedback(FeedbackDto feedback);
+        Task<IEnumerable<FeedbackDto>> GetFeedbacksByProductId(int ProductId);
     }
 }

@@ -12,7 +12,7 @@ namespace Shop.MVC.Controllers
         IProductService _productService;
         IImageService _imageService;
         IFeedbackService _feedbackService;
-        
+
         public ProductController(IFeedbackService feedbackService, IProductService productService, IMapper mapper, IImageService imageService)
         {
             _mapper = mapper;
@@ -30,17 +30,27 @@ namespace Shop.MVC.Controllers
             ImageDto imageDto = await _imageService.GetImageByProductId(id);
             var image = _mapper.Map<ImageModelView>(imageDto);
 
-            IEnumerable<FeedbackDto> feedbackDtos = await _feedbackService.GetAllFeedbacks();
+            IEnumerable<FeedbackDto> feedbackDtos = await _feedbackService.GetFeedbacksByProductId(id);
             var feedbacks = _mapper.Map<IEnumerable<FeedbackModelView>>(feedbackDtos);
 
             var model = new ProductWithFeedbackAndImageModelView()
             {
                 Product = product,
                 ImageUrl = image.ImagePath,
-                Feedbacks = feedbacks
+                Feedbacks = feedbacks,
+                Feedback = new FeedbackModelView()
             };
             
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateFeedback(ProductWithFeedbackAndImageModelView model)
+        {
+            var feedback = _mapper.Map<FeedbackDto>(model.Feedback);
+            await _feedbackService.CreateFeedback(feedback);
+            
+            return RedirectToAction("Index", "Product", new { id = model.Feedback.ProductId });
         }
     }
 }

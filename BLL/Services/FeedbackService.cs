@@ -51,5 +51,11 @@ namespace BLL.Services
         {
             _db.Feedbacks.UpdateFeedback(_mapper.Map<Feedback>(feedback));
         }
+
+        public async Task<IEnumerable<FeedbackDto>> GetFeedbacksByProductId(int ProductId)
+        {
+            var feedbacks = await _db.Feedbacks.GetFeedbacksByProductId(ProductId);
+            return _mapper.Map<IEnumerable<FeedbackDto>>(feedbacks);
+        }
     }
 }

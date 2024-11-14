@@ -35,6 +35,11 @@ namespace DAL.Repositories
             return await _db.Feedbacks.ToListAsync();
         }
 
+        public async Task<IEnumerable<Feedback>> GetFeedbacksByProductId(int ProductId)
+        {
+            return await _db.Feedbacks.Where(f => f.ProductId == ProductId).ToListAsync();
+        }
+
         public async Task<Feedback> GetFeedbackById(int id)
         {
             return await _db.Feedbacks.FirstOrDefaultAsync(p => p.Id == id);

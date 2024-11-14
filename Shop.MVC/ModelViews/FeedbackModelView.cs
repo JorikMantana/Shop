@@ -8,8 +8,5 @@ namespace Shop.MVC.ModelViews
         public string NickName { get; set; }
         public string? Comment { get; set; }
         public int ProductId { get; set; }
-
-        [Range(1,5)]
-        public int Evaluation { get; set; }
     }
 }
