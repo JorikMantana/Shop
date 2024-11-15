@@ -9,8 +9,8 @@ namespace DAL.Models
     public class Image
     {
         public int Id { get; set; }
-        public int ProductId { get; set; }
-        public string ImagePath { get; set; }
+        public int ItemId { get; set; } //Id объекта, к которому относится изображение
+        public string ImagePath { get; set; } // Путь к изображению
         public bool isMainImage { get; set; }
     }
 }

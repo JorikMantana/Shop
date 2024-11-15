@@ -1,0 +1,22 @@
+@*
+*@
+@{
+}
+
+@model Shop.MVC.ModelViews.CategoryModelView
+
+<h2 class="text-center">Новая категория</h2>
+
+<div class="container w-50">
+    <div class="">
+        <form asp-action="CreateCategory" method="post" enctype="multipart/form-data">
+            <label for="categoryName">Название</label>
+            <input asp-for="Name" type="text" class="form-control" id="categoryName"></input>
+            <label for="categoryImage">Фото</label>
+            <input asp-for="Image.ImageFile" type="file" class="form-control" id="categoryImage" accept="image/*"></input>
+            <div class="text-center my-2">
+                <button type="submit" class="btn btn-primary text-center ">Добавить</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -13,6 +13,7 @@ namespace DAL.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         public ShopContext(DbContextOptions<ShopContext> options) : base(options) 
         {

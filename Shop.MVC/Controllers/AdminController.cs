@@ -14,16 +14,18 @@ namespace Shop.MVC.Controllers
         private readonly IMapper _mapper;
         private readonly IProductService _productService;
         private readonly IImageService _imageService;
+        private readonly ICategoryService _categoryService;
 
-        public AdminController(IMapper mapper, IProductService productService, IImageService imageService)
+        public AdminController(IMapper mapper, ICategoryService categoryService, IProductService productService, IImageService imageService)
         {
             _mapper = mapper;
             _productService = productService;
             _imageService = imageService;
+            _categoryService = categoryService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ProductModelView _product)
+        public async Task<IActionResult> CreateProduct(ProductModelView _product)
         {
             var product = _mapper.Map<ProductDto>(_product);
             var createdProduct = await _productService.CreateProductAsync(product);
@@ -43,7 +45,7 @@ namespace Shop.MVC.Controllers
 
                 var image = new ImageDto
                 {
-                    ProductId = createdProduct.Id, 
+                    ItemId = createdProduct.Id, 
                     ImagePath = relativePath 
                 };
 
@@ -53,6 +55,48 @@ namespace Shop.MVC.Controllers
             return RedirectToAction("CreateNewProduct");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateCategory(CategoryModelView category)
+        {
+            var _category = _mapper.Map<CategoryDto>(category);
+            var createdCategory = await _categoryService.CreateCategoryAsync(_category);
+
+            if (category.Image != null)
+            {
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/CategoryIcons");
+                var uniqueFileName = Guid.NewGuid().ToString() + "_" + category.Image.ImageFile.FileName;
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await category.Image.ImageFile.CopyToAsync(stream);
+                }
+
+                string relativePath = $"/img/CategoryIcons/{uniqueFileName}";
+
+                var image = new ImageDto
+                {
+                    ItemId = createdCategory.Id,
+                    ImagePath = relativePath
+                };
+
+                await _imageService.CreateImage(image);
+            }
+
+            return RedirectToAction("CreateNewCategory");
+            
+        }
+
+        public IActionResult CreateNewCategory()
+        {
+            var model = new CategoryModelView()
+            {
+                Image = new ImageModelView()
+            };
+            
+            return View();
+        }
+        
         public IActionResult CreateNewProduct()
         {
 

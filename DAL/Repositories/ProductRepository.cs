@@ -52,5 +52,10 @@ namespace DAL.Repositories
         {
             return await _db.Products.ToListAsync();
         }
+
+        public async Task<IEnumerable<Product>> GetAllProductsByCategoryAsync(string category)
+        {
+            return await _db.Products.Where(p => p.Category.Name == category).ToListAsync();
+        }
     }
 }

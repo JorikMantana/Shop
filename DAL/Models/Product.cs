@@ -12,5 +12,6 @@ namespace DAL.Models
         public string Name { get; set; } //Название продукта
         public string Description { get; set; } //Описание продукта
         public double Price { get; set; } //Цена продукта
+        public Category? Category { get; set; } //Категория продукта
     }
 }

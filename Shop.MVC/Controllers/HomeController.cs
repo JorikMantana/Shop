@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shop.MVC.Models;
 using Shop.MVC.ModelViews;
 using System.Diagnostics;
+using DAL.Interfaces;
 
 namespace Shop.MVC.Controllers
 {
@@ -15,19 +16,38 @@ namespace Shop.MVC.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IProductService _productDb;
         private readonly IImageService _imageDb;
+        private readonly ICategoryService _categoryDb;
         private readonly IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger, IImageService imageService, IProductService productService, IMapper mapper)
+        public HomeController(ILogger<HomeController> logger, IImageService imageService, IProductService productService,  ICategoryService categoryService, IMapper mapper)
         {
             _imageDb = imageService;
             _productDb = productService;
+            _categoryDb = categoryService;
             _mapper = mapper;
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var categories = await _categoryDb.GetAllCategoriesAsync();
+            var categoriesMv = _mapper.Map<IEnumerable<CategoryModelView>>(categories);
+
+            var images = await _imageDb.GetAllImages();
+            var imagesMv = _mapper.Map<IEnumerable<ImageModelView>>(images);
+
+            var CategoryImages = categoriesMv.Select(category => new CategoryWithImageModelView()
+            {
+                Category = category,
+                ImageUrl = imagesMv.FirstOrDefault(img=>img.ItemId == category.Id)?.ImagePath
+            });
+
+            var model = new CategoriesModelView()
+            {
+                CategoriesWithImages = CategoryImages
+            };
+            
+            return View(model);
         }
 
         [HttpPost]
@@ -40,7 +60,7 @@ namespace Shop.MVC.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Privacy()
+        public async Task<IActionResult> Products(string category)
         {
             IEnumerable<ProductDto> productDtos = await _productDb.GetAllProductsAsync();
             var products = _mapper.Map<IEnumerable<ProductModelView>>(productDtos);
@@ -51,7 +71,7 @@ namespace Shop.MVC.Controllers
             var productImages = products.Select(product => new ProductWithImageModelView
             {
                 Product = product,
-                ImageUrl = images.FirstOrDefault(img => img.ProductId == product.Id)?.ImagePath
+                ImageUrl = images.FirstOrDefault(img => img.ItemId == product.Id)?.ImagePath
             });
 
             var model = new ProductsModelView

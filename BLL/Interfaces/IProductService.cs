@@ -15,5 +15,6 @@ namespace BLL.Interfaces
         public void UpdateProduct(ProductDto modelDto);
         public Task<ProductDto> GetProductByIdAsync(int id);
         public Task<IEnumerable<ProductDto>> GetAllProductsAsync();
+        public Task<IEnumerable<ProductDto>> GetAllProductsByCategoryAsync(string category);
     }
 }

@@ -7,5 +7,6 @@ public interface IUnitOfWork
     public IProductRepository Products { get; }
     public IImageRepository Images { get; }
     public IFeedbackRepository Feedbacks { get; }
+    public ICategoryRepository Categories { get; }
     public Task SaveChanges();
 }

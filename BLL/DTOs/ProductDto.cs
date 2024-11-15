@@ -5,5 +5,6 @@ public class ProductDto
     public int Id { get; set; }
     public string Name { get; set; } //Название продукта
     public string Description { get; set; } //Описание продукта
-    public double Price { get; set; }
+    public double Price { get; set; } //Цена продукта
+    public string? Category { get; set; } //Категория продукта
 }
