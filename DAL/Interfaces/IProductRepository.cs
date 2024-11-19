@@ -14,6 +14,6 @@ namespace DAL.Interfaces
         public void UpdateProduct(Product model);
         public Task<Product> GetProductByIdAsync(int id);
         public Task<IEnumerable<Product>> GetAllProductsAsync();
-        public Task<IEnumerable<Product>> GetAllProductsByCategoryAsync(string category);
+        public Task<IEnumerable<Product>> GetAllProductsByCategoryAsync(int categoryId);
     }
 }

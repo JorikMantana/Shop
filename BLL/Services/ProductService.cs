@@ -60,9 +60,9 @@ namespace BLL.Services
             return _mapper.Map<IEnumerable<ProductDto>>(products);
         }
 
-        public async Task<IEnumerable<ProductDto>> GetAllProductsByCategoryAsync(string category)
+        public async Task<IEnumerable<ProductDto>> GetAllProductsByCategoryAsync(int categoryId)
         {
-            var products = await _db.Products.GetAllProductsByCategoryAsync(category);
+            var products = await _db.Products.GetAllProductsByCategoryAsync(categoryId);
             return _mapper.Map<IEnumerable<ProductDto>>(products);
         }
     }

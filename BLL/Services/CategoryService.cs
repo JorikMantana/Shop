@@ -12,7 +12,7 @@ public class CategoryService : ICategoryService
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public CategoryService(UnitOfWork unitOfWork, IMapper mapper)
+    public CategoryService(IUnitOfWork unitOfWork, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
@@ -22,6 +22,7 @@ public class CategoryService : ICategoryService
     {
         var category = _mapper.Map<Category>(categoryDto);
         await _unitOfWork.Categories.CreateCategoryAsync(category);
+        await _unitOfWork.SaveChanges();
         
         return category;
     }

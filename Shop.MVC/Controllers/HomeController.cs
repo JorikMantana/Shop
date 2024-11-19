@@ -39,7 +39,7 @@ namespace Shop.MVC.Controllers
             var CategoryImages = categoriesMv.Select(category => new CategoryWithImageModelView()
             {
                 Category = category,
-                ImageUrl = imagesMv.FirstOrDefault(img=>img.ItemId == category.Id)?.ImagePath
+                ImageUrl = imagesMv.FirstOrDefault(img=>img.ItemId == category.Id && img.ItemType == category.Type)?.ImagePath
             });
 
             var model = new CategoriesModelView()
@@ -60,9 +60,9 @@ namespace Shop.MVC.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Products(string category)
+        public async Task<IActionResult> Products(int CategoryId)
         {
-            IEnumerable<ProductDto> productDtos = await _productDb.GetAllProductsAsync();
+            IEnumerable<ProductDto> productDtos = await _productDb.GetAllProductsByCategoryAsync(CategoryId);
             var products = _mapper.Map<IEnumerable<ProductModelView>>(productDtos);
 
             IEnumerable<ImageDto> imageDtos = await _imageDb.GetAllImages();

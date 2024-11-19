@@ -3,21 +3,28 @@
 @{
 }
 
-@model Shop.MVC.ModelViews.ProductModelView
+@model Shop.MVC.ModelViews.ProductWithCategoriesModelView
 
-<h2 class="text-center">Новый продукт</h2>
+<h2 class="text-center" xmlns="http://www.w3.org/1999/html">Новый продукт</h2>
 
 <div class="container w-50">
     <div class="">
         <form asp-action="CreateProduct" method="post" enctype="multipart/form-data">
             <label for="productName">Название</label>
-            <input asp-for="Name" type="text" class="form-control" id="productName"></input>
+            <input asp-for="Product.Name" type="text" class="form-control" id="productName"></input>
             <label for="productDescription">Описание</label>
-            <textarea asp-for="Description" class="form-control" type="text" rows="4" id="productDescription"></textarea>
+            <textarea asp-for="Product.Description" class="form-control" type="text" rows="4" id="productDescription"></textarea>
             <label for="">Цена</label>
-            <input asp-for="Price" type="text" class="form-control" id="produtPrice"></input>
+            <input asp-for="Product.Price" type="text" class="form-control" id="produtPrice"></input>
             <label for="productImage">Фото</label>
-            <input asp-for="Image.ImageFile" type="file" class="form-control" id="productImage" accept="image/*"></input>
+            <input asp-for="Product.Image.ImageFile" type="file" class="form-control" id="productImage" accept="image/*"></input>
+            <label for="CategoriesList">Выберите категорию продукта</label>
+            <select class="form-control" asp-for="Product.CategoryId" id="CategoriesList">
+                @foreach (var item in Model.Categories)
+                {
+                    <option value="@item.Id">@item.Name</option>;
+                }
+            </select>
             <div class="text-center my-2">
                 <button type="submit" class="btn btn-primary text-center ">Добавить</button>
             </div>

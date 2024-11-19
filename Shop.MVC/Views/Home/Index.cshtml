@@ -7,10 +7,10 @@
     @foreach (var item in Model.CategoriesWithImages)
     {
         <div class="col">
-            <a href="@Url.Action("", "Home", new {})">
+            <a href="@Url.Action("Products", "Home", new {categoryId = item.Category.Id})">
                 <div class="card m-1">
                     <div class="card-body">
-                        <img class="card-img text-center" style="width: 150px; height: 150px" src="@item.ImageUrl"/>
+                        <img class="card-img text-center img-fluid" style="width: 150px; height: 150px" src="@item.ImageUrl"/>
                     </div>
                     <div class="card-footer">
                         <div class="text-black text-center">@item.Category.Name</div>

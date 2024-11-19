@@ -12,5 +12,6 @@ namespace DAL.Models
         public int ItemId { get; set; } //Id объекта, к которому относится изображение
         public string ImagePath { get; set; } // Путь к изображению
         public bool isMainImage { get; set; }
+        public string ItemType { get; set; } // К какому типу объектов относится изображение
     }
 }

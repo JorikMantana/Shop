@@ -25,20 +25,20 @@ namespace Shop.MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProduct(ProductModelView _product)
+        public async Task<IActionResult> CreateProduct(ProductWithCategoriesModelView _productWithCategories)
         {
-            var product = _mapper.Map<ProductDto>(_product);
+            var product = _mapper.Map<ProductDto>(_productWithCategories.Product);
             var createdProduct = await _productService.CreateProductAsync(product);
 
-            if(_product.Image != null)
+            if(_productWithCategories.Image != null)
             {
                 var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/ProductImages");
-                var uniqueFileName = Guid.NewGuid().ToString() + "_" + _product.Image.ImageFile.FileName;
+                var uniqueFileName = Guid.NewGuid().ToString() + "_" + _productWithCategories.Product.Image.ImageFile.FileName;
                 var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    await _product.Image.ImageFile.CopyToAsync(stream);
+                    await _productWithCategories.Product.Image.ImageFile.CopyToAsync(stream);
                 }
 
                 string relativePath = $"/img/ProductImages/{uniqueFileName}";
@@ -46,7 +46,8 @@ namespace Shop.MVC.Controllers
                 var image = new ImageDto
                 {
                     ItemId = createdProduct.Id, 
-                    ImagePath = relativePath 
+                    ImagePath = relativePath,
+                    ItemType = _productWithCategories.Product.Type
                 };
 
                 await _imageService.CreateImage(image);
@@ -77,7 +78,8 @@ namespace Shop.MVC.Controllers
                 var image = new ImageDto
                 {
                     ItemId = createdCategory.Id,
-                    ImagePath = relativePath
+                    ImagePath = relativePath,
+                    ItemType = category.Type
                 };
 
                 await _imageService.CreateImage(image);
@@ -97,12 +99,16 @@ namespace Shop.MVC.Controllers
             return View();
         }
         
-        public IActionResult CreateNewProduct()
+        [HttpGet]
+        public async Task<IActionResult> CreateNewProduct()
         {
-
-            var model = new ProductModelView
+            var categories = await _categoryService.GetAllCategoriesAsync();
+            var _categories = _mapper.Map<IEnumerable<CategoryModelView>>(categories);
+            
+            var model = new ProductWithCategoriesModelView()
             {
-                Image = new ImageModelView()
+                Image = new ImageModelView(),
+                Categories = _categories
             };
 
             return View(model);
