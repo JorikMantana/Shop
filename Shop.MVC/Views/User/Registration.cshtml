@@ -1,0 +1,25 @@
+@model TModel
+
+@{
+    Layout = null;
+}
+
+@model Shop.MVC.ModelViews.UserModelView
+
+<h2 class="text-center">Регистрация</h2>
+
+<div class="container w-50">
+    <div class="">
+        <form asp-action="Register" method="post">
+            <label for="Email">Email</label>
+            <input asp-for="Email" type="text" class="form-control" id="Email"></input>
+            <label for="Name">Имя</label>
+            <input asp-for="UserName" class="form-control" id="Name"></input>
+            <label for="Password">Пароль</label>
+            <input asp-for="Password" class="form-control" id="Password"></input>
+            <div class="text-center my-2">
+                <button type="submit" class="btn btn-primary text-center ">Регистрация</button>
+            </div>
+        </form>
+    </div>
+</div>

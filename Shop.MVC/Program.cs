@@ -3,8 +3,11 @@ using BLL.MappingProfiles;
 using BLL.Services;
 using DAL.Data;
 using DAL.Interfaces;
+using DAL.Models.IdentityEntities;
 using DAL.Repositories;
 using DAL.UoW;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shop.MVC.MappingProfiles;
 using Shop.MVC.ModelViews;
@@ -15,6 +18,17 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ShopContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<IdentityShopContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddDbContext<IdentityShopContext>(options =>
+    options.UseSqlServer(connectionString));
+
+
+
+
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
