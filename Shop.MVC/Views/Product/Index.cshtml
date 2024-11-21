@@ -15,7 +15,10 @@
             <div class="m-5 bg-light h-15 w-50 align-content-center mx-auto d-block">
                 <h1 class="text-black text-center">@Model.Product.Name</h1>
                 <h2 class="text-black text-center">@Model.Product.Price</h2>
-                <button type="button" class="btn btn-outline-success mx-auto d-block w-75">В корзину</button>
+                <form asp-action="ProductToOrder" method="post">
+                    <input type="hidden" asp-for="@Model.Product.Id"/>
+                    <button type="submit" class="btn btn-outline-success mx-auto d-block w-75">Купить</button>
+                </form>
             </div>
             <div class="h-75 m-5 w-100 mx-auto d-block">
                 <div class="text-black text-wrap">@Model.Product.Description</div>

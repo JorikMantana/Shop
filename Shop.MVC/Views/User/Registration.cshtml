@@ -1,7 +1,4 @@
-@model TModel
-
 @{
-    Layout = null;
 }
 
 @model Shop.MVC.ModelViews.UserModelView
@@ -12,7 +9,7 @@
     <div class="">
         <form asp-action="Register" method="post">
             <label for="Email">Email</label>
-            <input asp-for="Email" type="text" class="form-control" id="Email"></input>
+            <input asp-for="Email" type="text" class="form-control" id="Email" />
             <label for="Name">Имя</label>
             <input asp-for="UserName" class="form-control" id="Name"></input>
             <label for="Password">Пароль</label>

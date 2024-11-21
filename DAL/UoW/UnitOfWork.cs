@@ -17,6 +17,7 @@ namespace DAL.UoW
         private ImageRepository _imageRepository;
         private FeedbackRepository _feedbackRepository;
         private CategoryRepository _categoryRepository;
+        private OrderRepository _orderRepository;
 
         public UnitOfWork(ShopContext shopContext)
         {
@@ -60,6 +61,16 @@ namespace DAL.UoW
                 if(_categoryRepository == null)
                     _categoryRepository = new CategoryRepository(_db);
                 return _categoryRepository;
+            }
+        }
+
+        public IOrderRepository Orders
+        {
+            get
+            {
+                if(_orderRepository == null)
+                    _orderRepository = new OrderRepository(_db);
+                return _orderRepository;
             }
         }
 

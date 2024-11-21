@@ -1,0 +1,32 @@
+@{
+}
+
+@model Shop.MVC.ModelViews.UserModelView
+
+<h2 class="text-center">Вход</h2>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="text-center">@User.Identity.Name</div>
+    <form method="post" asp-action="Logout">
+        <div class="text-center my-2">
+            <button type="submit" class="btn btn-primary text-center ">Выход</button>
+        </div>
+    </form>
+}
+else
+{
+    <div class="container w-50">
+        <div class="">
+            <form asp-action="LoginUser" method="post">
+                <label for="Email">Email</label>
+                <input asp-for="Email" type="text" class="form-control" id="Email" />
+                <label for="Password">Пароль</label>
+                <input asp-for="Password" class="form-control" id="Password"></input>
+                <div class="text-center my-2">
+                    <button type="submit" class="btn btn-primary text-center ">Вход</button>
+                </div>
+            </form>
+        </div>
+    </div>
+}

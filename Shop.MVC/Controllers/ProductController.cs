@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Security.Claims;
+using AutoMapper;
 using BLL.DTOs;
 using BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -12,13 +13,16 @@ namespace Shop.MVC.Controllers
         IProductService _productService;
         IImageService _imageService;
         IFeedbackService _feedbackService;
+        IOrderService _orderService;
+        
 
-        public ProductController(IFeedbackService feedbackService, IProductService productService, IMapper mapper, IImageService imageService)
+        public ProductController(IFeedbackService feedbackService, IProductService productService, IMapper mapper, IImageService imageService, IOrderService orderService)
         {
             _mapper = mapper;
             _productService = productService;
             _imageService = imageService;
             _feedbackService = feedbackService;
+            _orderService = orderService;
         }
         
         [HttpGet]
@@ -51,6 +55,21 @@ namespace Shop.MVC.Controllers
             await _feedbackService.CreateFeedback(feedback);
             
             return RedirectToAction("Index", "Product", new { id = model.Feedback.ProductId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ProductToOrder(ProductWithFeedbackAndImageModelView model)
+        {
+            var order = new OrderDto();
+
+            order.ProductId = model.Product.Id;
+            order.UserName = User.Identity.Name;
+            order.Address = "Some address";
+            order.Count = 1;
+            
+            await _orderService.CreateOrder(order);
+            
+            return RedirectToAction("Index", "Product", new { id = model.Product.Id });
         }
     }
 }

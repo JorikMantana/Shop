@@ -8,5 +8,6 @@ public interface IUnitOfWork
     public IImageRepository Images { get; }
     public IFeedbackRepository Feedbacks { get; }
     public ICategoryRepository Categories { get; }
+    public IOrderRepository Orders { get; }
     public Task SaveChanges();
 }

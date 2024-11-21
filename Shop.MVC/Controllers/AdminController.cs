@@ -3,6 +3,7 @@ using BLL.DTOs;
 using BLL.Interfaces;
 using DAL.Interfaces;
 using DAL.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.MVC.ModelViews;
 using static System.Net.Mime.MediaTypeNames;
@@ -23,7 +24,7 @@ namespace Shop.MVC.Controllers
             _imageService = imageService;
             _categoryService = categoryService;
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> CreateProduct(ProductWithCategoriesModelView _productWithCategories)
         {
@@ -89,6 +90,7 @@ namespace Shop.MVC.Controllers
             
         }
 
+        [Authorize]
         public IActionResult CreateNewCategory()
         {
             var model = new CategoryModelView()

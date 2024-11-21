@@ -3,7 +3,7 @@ using BLL.MappingProfiles;
 using BLL.Services;
 using DAL.Data;
 using DAL.Interfaces;
-using DAL.Models.IdentityEntities;
+using DAL.Models;
 using DAL.Repositories;
 using DAL.UoW;
 using Microsoft.AspNetCore.Identity;
@@ -19,12 +19,19 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ShopContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<IdentityShopContext>()
-    .AddDefaultTokenProviders();
-
 builder.Services.AddDbContext<IdentityShopContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+    {
+        options.Password.RequireDigit = false;               // Не требуется как минимум одна цифра
+        options.Password.RequireLowercase = false;           // Не требуется как минимум одна строчная буква
+        options.Password.RequireUppercase = false;           // Не требуется как минимум одна заглавная буква
+        options.Password.RequireNonAlphanumeric = false;     // Не требуется как минимум один специальный символ
+        options.Password.RequiredLength = 0;                  // Минимальная длина пароля (0 означает отсутствие требований)
+        options.Password.RequiredUniqueChars = 0;             // Количество уникальных символов в пароле
+    })
+    .AddEntityFrameworkStores<IdentityShopContext>();
 
 
 
@@ -34,7 +41,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddAutoMapper(typeof(ProductProfile), typeof(ProductMvProfile), typeof(ImageProfile), typeof(ImageMvProfile), typeof(FeedbackProfile), typeof(FeedbackMvProfile), typeof(CategoryProfile), typeof(CategoryMvProfile));
+builder.Services.AddAutoMapper(typeof(ProductProfile), typeof(ProductMvProfile), typeof(ImageProfile), typeof(ImageMvProfile), typeof(FeedbackProfile), typeof(FeedbackMvProfile), typeof(CategoryProfile), typeof(CategoryMvProfile), typeof(UserProfile), typeof(UserMvProfile), typeof(ImageProfile), typeof(ImageMvProfile), typeof(OrderMvProfile), typeof(OrderProfile));
 
 builder.Services.AddRazorPages();
 
@@ -43,11 +50,14 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 //Repositories
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
 builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 //UnitOfWork
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -72,6 +82,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication(); 
 app.UseAuthorization();
 
 app.MapControllerRoute(
