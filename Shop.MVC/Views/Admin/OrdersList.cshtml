@@ -1,0 +1,33 @@
+@{
+}
+@model Shop.MVC.ModelViews.OrdersWithProdutsModelView
+
+<div class="container row-cols-1">
+    <div>
+        <div class="row m-1 text-center">
+            <div class="col">Продукт</div>
+            <div class="col">Заказчик</div>
+            <div class="col">Количество</div>
+            <div class="col">Адрес</div>
+            <div class="col">Действие</div>
+        </div>
+    </div>
+</div>
+
+<div class="container row-cols-1">
+    <div class="row text-center">
+        @foreach (var item in Model.OrdersWithProduct)
+        {
+            <div class="row m-1 bg-light">
+                <div class="col">@item.Product.Name</div>
+                <div class="col">@item.Order.UserName</div>
+                <div class="col">@item.Order.Count</div>
+                <div class="col">@item.Order.Address</div>
+                <form method="post" asp-action="DeleteOrder" class="col">
+                    <input type="hidden" name="id" value="@item.Order.Id"/>
+                    <button type="submit" class="btn btn-danger text-decoration-none text-center">Удалить</button>
+                </form>
+            </div>
+        }
+    </div>
+</div>

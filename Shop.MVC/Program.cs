@@ -7,14 +7,11 @@ using DAL.Models;
 using DAL.Repositories;
 using DAL.UoW;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shop.MVC.MappingProfiles;
-using Shop.MVC.ModelViews;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ShopContext>(options =>
     options.UseSqlServer(connectionString));
@@ -28,8 +25,8 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
         options.Password.RequireLowercase = false;           // Не требуется как минимум одна строчная буква
         options.Password.RequireUppercase = false;           // Не требуется как минимум одна заглавная буква
         options.Password.RequireNonAlphanumeric = false;     // Не требуется как минимум один специальный символ
-        options.Password.RequiredLength = 0;                  // Минимальная длина пароля (0 означает отсутствие требований)
-        options.Password.RequiredUniqueChars = 0;             // Количество уникальных символов в пароле
+        options.Password.RequiredLength = 0;                 // Минимальная длина пароля (0 означает отсутствие требований)
+        options.Password.RequiredUniqueChars = 0;            // Количество уникальных символов в пароле
     })
     .AddEntityFrameworkStores<IdentityShopContext>();
 
@@ -72,7 +69,6 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

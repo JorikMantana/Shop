@@ -47,7 +47,7 @@ public class OrderService : IOrderService
 
     public async Task DeleteOrder(int orderId)
     {
-        var order = _mapper.Map<OrderDto>(orderId);
-        await _unitOfWork.Orders.DeleteOrder(order.Id);
+        await _unitOfWork.Orders.DeleteOrder(orderId);
+        await _unitOfWork.SaveChanges();
     }
 }

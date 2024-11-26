@@ -78,7 +78,7 @@ namespace Shop.MVC.Controllers
             {
                 ProductsWithImages = productImages,
             };
-
+            
             return View(model);
         }
 

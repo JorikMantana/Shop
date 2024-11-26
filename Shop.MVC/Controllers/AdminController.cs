@@ -16,13 +16,43 @@ namespace Shop.MVC.Controllers
         private readonly IProductService _productService;
         private readonly IImageService _imageService;
         private readonly ICategoryService _categoryService;
+        private readonly IOrderService _orderService;
 
-        public AdminController(IMapper mapper, ICategoryService categoryService, IProductService productService, IImageService imageService)
+        public AdminController(IMapper mapper, IOrderService orderService, ICategoryService categoryService, IProductService productService, IImageService imageService)
         {
             _mapper = mapper;
             _productService = productService;
             _imageService = imageService;
             _categoryService = categoryService;
+            _orderService = orderService;
+        }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> OrdersList()
+        {
+            var orders = await _orderService.GetAllOrders();
+            var mappedOrders = _mapper.Map<IEnumerable<OrderModelView>>(orders);
+
+            var products = await _productService.GetAllProductsAsync();
+            var mappedProducts = _mapper.Map<IEnumerable<ProductModelView>>(products);
+
+            var orderWithProduct = mappedOrders.Select(order => new OrderWithProductModelView
+            {
+                Order = order,
+                Product = mappedProducts.FirstOrDefault(p => p.Id == order.ProductId)
+            });
+
+            var model = new OrdersWithProdutsModelView()
+            {
+                OrdersWithProduct = orderWithProduct
+            };
+
+            return View(model);
         }
         
         [HttpPost]
@@ -114,6 +144,13 @@ namespace Shop.MVC.Controllers
             };
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteOrder(int id)
+        {
+            await _orderService.DeleteOrder(id);
+            return RedirectToAction("OrdersList");
         }
     }
 }

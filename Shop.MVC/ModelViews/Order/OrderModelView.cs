@@ -1,10 +1,10 @@
-namespace DAL.Models;
+namespace Shop.MVC.ModelViews;
 
-public class Order
+public class OrderModelView
 {
     public int Id { get; set; }
-    public int ProductId { get; set; }
     public string UserName { get; set; }
+    public int ProductId { get; set; }
     public int Count { get; set; }
     public string Address { get; set; }
 }
