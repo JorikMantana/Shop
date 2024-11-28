@@ -27,6 +27,9 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
         options.Password.RequireNonAlphanumeric = false;     // Не требуется как минимум один специальный символ
         options.Password.RequiredLength = 0;                 // Минимальная длина пароля (0 означает отсутствие требований)
         options.Password.RequiredUniqueChars = 0;            // Количество уникальных символов в пароле
+
+        options.User.AllowedUserNameCharacters =
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+йёцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ";
     })
     .AddEntityFrameworkStores<IdentityShopContext>();
 

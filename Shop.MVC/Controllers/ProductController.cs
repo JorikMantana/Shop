@@ -2,6 +2,8 @@
 using AutoMapper;
 using BLL.DTOs;
 using BLL.Interfaces;
+using DAL.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shop.MVC.ModelViews;
 
@@ -14,15 +16,17 @@ namespace Shop.MVC.Controllers
         IImageService _imageService;
         IFeedbackService _feedbackService;
         IOrderService _orderService;
+        UserManager<User> _userManager;
         
 
-        public ProductController(IFeedbackService feedbackService, IProductService productService, IMapper mapper, IImageService imageService, IOrderService orderService)
+        public ProductController(UserManager<User> userManager, IFeedbackService feedbackService, IProductService productService, IMapper mapper, IImageService imageService, IOrderService orderService)
         {
             _mapper = mapper;
             _productService = productService;
             _imageService = imageService;
             _feedbackService = feedbackService;
             _orderService = orderService;
+            _userManager = userManager;
         }
         
         [HttpGet]
@@ -64,7 +68,7 @@ namespace Shop.MVC.Controllers
 
             order.ProductId = model.Product.Id;
             order.UserName = User.Identity.Name;
-            order.Address = "Some address";
+            order.Address = _userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Address;
             order.Count = 1;
             
             await _orderService.CreateOrder(order);

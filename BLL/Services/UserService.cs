@@ -27,7 +27,6 @@ public class UserService : IUserService
     public async Task CreateUser(UserDto user)
     {
         var userEntity = _mapper.Map<User>(user);
-        userEntity.UserName = userEntity.Email;
         await _userManager.CreateAsync(userEntity, user.Password);
     }
 
