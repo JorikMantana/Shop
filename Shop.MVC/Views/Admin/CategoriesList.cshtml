@@ -1,0 +1,19 @@
+@{
+}
+
+@model Shop.MVC.ModelViews.CategoriesModelView
+
+<div class="container row-cols-1">
+    <div class="row text-center">
+        @foreach (var item in Model.CategoriesWithImages)
+        {
+            <div class="row m-1 bg-light">
+                <div class="col">@item.Category.Name</div>
+                <form method="post" asp-action="DeleteCategory" class="col">
+                    <input type="hidden" name="id" value="@item.Category.Id"/>
+                    <button type="submit" class="btn btn-danger text-decoration-none text-center">Удалить</button>
+                </form>
+            </div>
+        }
+    </div>
+</div>

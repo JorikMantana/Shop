@@ -27,6 +27,7 @@ namespace Shop.MVC.Controllers
             _orderService = orderService;
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             return View();
@@ -146,11 +147,23 @@ namespace Shop.MVC.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> CategoriesList()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> DeleteOrder(int id)
         {
             await _orderService.DeleteOrder(id);
             return RedirectToAction("OrdersList");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteCategory(int id)
+        {
+            await _orderService.DeleteOrder(id);
+            return RedirectToAction("CategoriesList");
         }
     }
 }

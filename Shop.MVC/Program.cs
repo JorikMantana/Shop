@@ -61,8 +61,13 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 //UnitOfWork
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-
 var app = builder.Build();
+
+using (var serviceScope = app.Services.CreateScope())
+{
+    var services = serviceScope.ServiceProvider;
+    await InitializeIdentityDb.InitializeDb(services);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
