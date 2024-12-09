@@ -10,8 +10,8 @@ namespace DAL.Models
     public class Feedback
     {
         public int Id { get; set; }
-        public string NickName { get; set; }
-        public string? Comment { get; set; }
-        public int ProductId { get; set; }
+        public string NickName { get; set; } //Никнейм пользователя
+        public string? Comment { get; set; } //Комментарий
+        public int ProductId { get; set; } //id продукта, на который оставляется комментарий
     }
 }
