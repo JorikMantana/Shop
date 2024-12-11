@@ -17,12 +17,9 @@ namespace Shop.MVC.Controllers
             _mapper = mapper;
         }
     
-        public IActionResult Registration(UserModelView model)
+        public IActionResult Registration()
         {
-            if (model != null)
-                return View(model);
-            else
-                return View();
+            return View();
         }
 
         public IActionResult LogIn()
@@ -33,14 +30,10 @@ namespace Shop.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(UserModelView user)
         {
-            if (ModelState.IsValid)
-            {
-                var newUser = _mapper.Map<UserDto>(user);
-                await _userService.CreateUser(newUser);
+            var newUser = _mapper.Map<UserDto>(user);
+            await _userService.CreateUser(newUser);
 
-                return RedirectToAction("Registration");
-            }
-            return RedirectToAction("Registration", user);
+            return RedirectToAction("Registration");
         }
         
         [HttpPost]

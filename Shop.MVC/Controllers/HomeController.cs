@@ -2,9 +2,7 @@ using AutoMapper;
 using BLL.DTOs;
 using BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Shop.MVC.Models;
 using Shop.MVC.ModelViews;
-using System.Diagnostics;
 
 namespace Shop.MVC.Controllers
 {
@@ -77,12 +75,6 @@ namespace Shop.MVC.Controllers
             };
             
             return View(model);
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

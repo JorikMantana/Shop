@@ -7,7 +7,7 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-    <div class="text-center">@User.Identity.Name</div>
+    <div class="text-center">Здравствуйте, @User.Identity.Name.ToUpper()</div>
     <form method="post" asp-action="Logout">
         <div class="text-center my-2">
             <button type="submit" class="btn btn-primary text-center ">Выход</button>

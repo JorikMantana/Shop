@@ -8,14 +8,14 @@
 <div class="container w-50">
     <div class="">
         <form asp-action="Register" method="post">
-            <input asp-for="Email" placeholder="Email" type="text" class="form-control" id="Email" />
-            <span asp-validation-for="Email"></span>
+            <label for="Email">Введите Email</label>
+            <input asp-for="Email" placeholder="Email" type="text" class="form-control" id="Email"/>
+            <label for="UserName">Введите ваше имя</label>
             <input asp-for="UserName" class="form-control" placeholder="Имя" id="Name"></input>
-            <span asp-validation-for="UserName" class="text-danger"></span>
+            <label for="Address">Введите ваш адрес</label>
             <input asp-for="Address" placeholder="Адрес проживания" class="form-control" id="Address"></input>
-            <span asp-validation-for="Address" class="text-danger"></span>
+            <label for="Password">Придумайте пароль</label>
             <input asp-for="Password" placeholder="Пароль" class="form-control" id="Password"></input>
-            <span asp-validation-for="Password" class="text-danger"></span>
             <div class="text-center my-2">
                 <button type="submit" class="btn btn-primary text-center ">Регистрация</button>
             </div>
