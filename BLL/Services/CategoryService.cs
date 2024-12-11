@@ -3,7 +3,6 @@ using BLL.DTOs;
 using BLL.Interfaces;
 using DAL.Interfaces;
 using DAL.Models;
-using DAL.UoW;
 
 namespace BLL.Services;
 

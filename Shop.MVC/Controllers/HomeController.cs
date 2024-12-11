@@ -1,13 +1,10 @@
 using AutoMapper;
 using BLL.DTOs;
 using BLL.Interfaces;
-using BLL.Services;
-using DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 using Shop.MVC.Models;
 using Shop.MVC.ModelViews;
 using System.Diagnostics;
-using DAL.Interfaces;
 
 namespace Shop.MVC.Controllers
 {

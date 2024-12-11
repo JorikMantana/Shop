@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
 using BLL.DTOs;
 using BLL.Interfaces;
-using DAL.Interfaces;
-using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.MVC.ModelViews;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Shop.MVC.Controllers
 {

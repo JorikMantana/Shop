@@ -1,7 +1,6 @@
 using AutoMapper;
 using BLL.DTOs;
 using BLL.Interfaces;
-using DAL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Shop.MVC.ModelViews;
 

@@ -1,8 +1,6 @@
-using System.Security.Claims;
 using AutoMapper;
 using BLL.DTOs;
 using BLL.Interfaces;
-using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
